@@ -155,6 +155,7 @@ footer button:hover {
     transform: rotate(360deg);
   }
 }
+
 @media (min-width: 640px) {
   .sidebar {
     position: relative;
