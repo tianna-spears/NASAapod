@@ -14,20 +14,18 @@ function App() {
 
   useEffect(() => {
     async function fetchAPIData() {
-      const NASA_KEY= import.meta.env.VITE_NASA_API_KEY;
-      const url ='https://api.nasa.gov/planetary/apod' +
-      `?api_key=${NASA_KEY}`
+      const NASA_KEY= import.meta.env.VITE_NASA_API_KEY
+      const url = `https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}`;      
       try {
         const response= await fetch(url);
         const apiData= await response.json();
-        setData(apiData)
-        console.log('DATA\n',data)
+        setData(apiData);
       } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
       }
-    } 
-    // fetchAPIData()
-  }, [])
+    }
+    fetchAPIData();
+  }, [data]);
 
   return (
     <>
@@ -36,13 +34,15 @@ function App() {
           <i className="fa-solid fa-gear"></i>
         </div>
       )}
-
-      {showModel &&  (
-        <SideBar 
+      {showModel && (
+        <SideBar
         handleToggleModel={handleToggleModel} /> 
       )}
+      {data && (
       <Footer 
+      data={data} 
       handleToggleModel={handleToggleModel} />
+      )}
     </>
   )
 }
