@@ -27,6 +27,8 @@
 .imgContainer {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
+  height: auto;
 }
 
 .bgImage {
@@ -114,6 +116,12 @@ footer button:hover {
   max-width: 800px;
   margin-left: auto;
   background: #030615;
+  margin: unset;
+}
+
+.sidebarContents h2 {
+  font-weight: 200;
+  font-size: 1.4rem;
 }
 
 .sidebarContents div {
@@ -132,6 +140,17 @@ footer button:hover {
 
 .sidebarContents button:hover {
   opacity: 0.7
+}
+
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.descriptionTitle {
+  font-size: 1.1rem;
+  font-weight: 200;
 }
 
 .loadingState {
@@ -162,10 +181,6 @@ footer button:hover {
     inset: unset;
     min-width: 30%;
     box-shadow: 0 0 40px 1px #030615;
-  }
-
-  .sidebarContents {
-    margin: unset;
   }
 
 }
