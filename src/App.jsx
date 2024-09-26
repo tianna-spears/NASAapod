@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Footer from "./components/Footer";
-import Main from "./components/Main";
+import Home from "./components/Home";
 import SideBar from "./components/SideBar";
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
 
   return (
     <>
-      {loading ? (<Main data={data} />) : (
+      {loading ? (<Home data={data} />) : (
         <div className="loadingState">
           <i className="fas fa-gear"></i>        
         </div>

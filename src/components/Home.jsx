@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export default function Main(props) {
+export default function Home(props) {
     const { data } = props;
     return (
         <div className="imgContainer">
