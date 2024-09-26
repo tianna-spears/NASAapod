@@ -6,7 +6,7 @@ export default function Footer(props)  {
     <footer>
         <div className="bgGradient"></div>
         <div>
-            <h1> APOD PROJECT</h1>
+            <h1> NASA Astronomy Picture of the Day (React.js Project)</h1>
             <h2> {data.title || 'Loading title...'}</h2>
         </div>
         <button onClick= {handleToggleModel}>
