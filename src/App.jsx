@@ -5,7 +5,7 @@ import SideBar from "./components/SideBar";
 
 function App() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showModel, setShowModel] = useState(false);
 
   function handleToggleModel() {
@@ -14,38 +14,44 @@ function App() {
 
   useEffect(() => {
     async function fetchAPIData() {
-      const NASA_KEY = import.meta.env.VITE_NASA_API_KEY
-      const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_KEY}`
+      const NASA_KEY = import.meta.env.VITE_NASA_API_KEY;
+      const url = `https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}`;
+      const today = new Date().toDateString();
+      const localKey = `NASA-${today}`;
 
-      const today = (new Date()).toDateString()
-      const localKey = `NASA-${today}`
-      setLoading(false);
-
-      if (localStorage.getItem(localKey)) {
-        const apiData = JSON.parse(localStorage.getItem(localKey))
-        setData(apiData);
-        setLoading(true);
+      const cachedData = localStorage.getItem(localKey);
+      if (cachedData) {
+        setData(JSON.parse(cachedData));
+        setLoading(false); 
+        return; 
       }
 
       try {
         const response = await fetch(url);
+        if (!response.ok) throw new Error('Network response was not ok');
         const apiData = await response.json();
         localStorage.setItem(localKey, JSON.stringify(apiData));
         setData(apiData);
         console.log('Fetched from API today');
       } catch (error) {
-        console.log(error.message);
-      }
+        console.error("Fetch error: ", error.message);
+      } 
     }
-    fetchAPIData()
-  }, [])
+      setLoading(false);
+      
+    fetchAPIData();
+  }, []);
 
   return (
     <>
-      {loading ? (<Home data={data} />) : (
+      {loading ? (
         <div className="loadingState">
-          <i className="fas fa-gear"></i>        
+          <p className="blackHole">
+            <i className="fas fa-gear"></i> You are currently in a black hole. Please wait.
+          </p>
         </div>
+      ) : (
+        <Home data={data} />
       )}
       {showModel && (
         <SideBar data={data} handleToggleModel={handleToggleModel} />
@@ -54,7 +60,7 @@ function App() {
         <Footer data={data} handleToggleModel={handleToggleModel} />
       )}
     </>
-  )
+  );
 }
 
 export default App;
